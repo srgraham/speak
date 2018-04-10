@@ -5,7 +5,15 @@
 <script>
 (function(){
 
-  let speech = atob(document.location.search.slice(1));
+  let search_str = document.location.search.slice(1);
+  let search_params = new URLSearchParams(search_str);
+
+  if(search_params.get('input')){
+    document.location = `?${btoa(search_params.get('input'))}`;
+    return;
+  }
+
+  let speech = atob(search_str);
 
   if(speech){
     window.speechSynthesis.speak(new SpeechSynthesisUtterance(speech));
